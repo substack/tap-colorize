@@ -15,23 +15,29 @@ module.exports = function (opts) {
     var buffered = '';
     var inyaml = false, level = null;
     
-    return combine(split(), through(write, end));
+    var stream = combine(split(), through(write, end));
+    stream.mode = null;
+    return stream;
     
     function write (buf, enc, next) {
         var line = buf.toString('utf8');
         if (/^TAP version|^#\s+|^1..\d+$|^\s+(---|...)$/i.test(line)) {
-            this.push(buffered + reset + info + '\n');
+            stream.mode = info;
+            this.push(buffered + reset + stream.mode + '\n');
             buffered = line + reset;
         }
         else if (/^ok\s+/.test(line)) {
-            this.push(buffered + reset + pass + '\n');
+            stream.mode = pass;
+            this.push(buffered + reset + stream.mode + '\n');
             buffered = line + reset;
         }
         else if (/^not ok\s+/.test(line)) {
-            this.push(buffered + reset + fail + '\n');
+            stream.mode = fail;
+            this.push(buffered + reset + stream.mode + '\n');
             buffered = line + reset;
         }
         else {
+            stream.mode = null;
             this.push(buffered + '\n');
             buffered = line;
         }
