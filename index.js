@@ -45,6 +45,9 @@ module.exports = function (opts) {
 
 function color (parts) {
     if (typeof parts === 'string') parts = parts.split(/\s+/);
+    if (typeof parts === 'object' && /^\d+$/.test(parts[0])) {
+        parts = [ parts ];
+    }
     
     var s = '';
     for (var i = 0; i < parts.length; i++) {
