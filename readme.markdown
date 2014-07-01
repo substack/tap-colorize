@@ -3,6 +3,10 @@
 colorize [tap](http://testanything.org/)
 in a way that preserves its machine-readability
 
+[![testling badge](https://ci.testling.com/substack/tap-colorize.png)](https://ci.testling.com/substack/tap-colorize)
+
+[![build status](https://secure.travis-ci.org/substack/tap-colorize.png)](http://travis-ci.org/substack/tap-colorize)
+
 # example
 
 ``` js
