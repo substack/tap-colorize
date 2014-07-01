@@ -53,6 +53,21 @@ You can preface a color name with `'bright'`, `'dim'`. `'reverse'`, or
 `'underscore'`. Use an array for a color with a string prefix if you want to
 preface an rgb array color.
 
+# attributes
+
+## stream.mode
+
+The ansi codes for the buffered output are placed into `stream.mode` in case you
+need to print out extra data before the next line comes in. This is useful for
+patching `console.log()` to show up in the ordinary terminal color and then
+setting the `stream.mode` back for the next line of output.
+
+Some terminals can do this with `'\x1b7'` to push and `'\x1b8'` to pop the
+terminal context with attributes, but support for this feature is not
+widespread.
+
+If there is no active mode, `stream.mode` is `null`.
+
 # usage
 
 There is also a command-line program in this package.
