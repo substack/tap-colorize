@@ -45,6 +45,29 @@ Options are:
 Colors can be a hex code starting with a `#`, an array of rgb `0-255` integers,
 or a [color name](https://www.npmjs.org/package/colornames).
 
+# usage
+
+There is also a command-line program in this package.
+
+```
+usage: tap-colorize OPTIONS
+
+  Colorize TAP from INPUT, writing colorized data to OUTPUT.
+
+OPTIONS are:
+
+  -i, --input    Read from INPUT. Default: stdin.
+  -o, --output   Write to OUTPUT. Default: stdout.
+
+  --info   Color of info lines.
+  --pass   Color of /^ok / lines.
+  --fail   Color of /^not ok/ lines.
+
+  -h, --help     Show this help message.
+  -v, --version  Print the current version of tap-parser.
+
+```
+
 # install
 
 With [npm](https://npmjs.org), to get the module do:
