@@ -37,7 +37,7 @@ module.exports = function (opts) {
         next();
     }
     function end () {
-        this.push(buffered + reset + '\n');
+        this.push(buffered + '\n');
         this.push(null);
     }
 };
