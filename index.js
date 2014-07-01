@@ -18,7 +18,7 @@ module.exports = function (opts) {
     
     function write (buf, enc, next) {
         var line = buf.toString('utf8');
-        if (/^TAP version|^#|^1..\d+$|^\s+(---|...)$/i.test(line)) {
+        if (/^TAP version|^#\s+|^1..\d+$|^\s+(---|...)$/i.test(line)) {
             this.push(buffered + reset + info + '\n');
             buffered = line + reset;
         }
