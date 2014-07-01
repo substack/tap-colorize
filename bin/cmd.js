@@ -5,9 +5,23 @@ var fs = require('fs');
 var minimist = require('minimist');
 
 var argv = minimist(process.argv.slice(2), {
-    alias: { i: 'infile', o: 'outfile' },
+    alias: {
+        v: 'version', h: 'help',
+        i: 'infile', o: 'outfile'
+    },
     default: { infile: '-', outfile: '-' }
 });
+
+if (argv.help) {
+    fs.createReadStream(__dirname + '/usage.txt')
+        .pipe(process.stdout);
+    ;
+    return;
+}
+if (argv.version) {
+    console.log(require('../package.json').version);
+    return;
+}
 
 var input = argv.infile === '-'
     ? process.stdin
