@@ -20,18 +20,18 @@ module.exports = function (opts) {
         var line = buf.toString('utf8');
         if (/^TAP version|^#|^1..\d+$|^\s+(---|...)$/i.test(line)) {
             this.push(buffered + reset + info + '\n');
-            buffered = line;
+            buffered = line + reset;
         }
         else if (/^ok\s+/.test(line)) {
             this.push(buffered + reset + pass + '\n');
-            buffered = line;
+            buffered = line + reset;
         }
         else if (/^not ok\s+/.test(line)) {
             this.push(buffered + reset + fail + '\n');
-            buffered = line;
+            buffered = line + reset;
         }
         else {
-            this.push(buffered + reset + '\n');
+            this.push(buffered + '\n');
             buffered = line;
         }
         next();
