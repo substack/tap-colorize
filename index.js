@@ -6,9 +6,10 @@ var hexCode = require('colornames');
 
 module.exports = function (opts) {
     if (!opts) opts = {};
-    var pass = color(opts.pass || 'green');
-    var fail = color(opts.fail || 'red');
-    var info = color(opts.info || [91,127,127]);
+    
+    var pass = color(opts.pass || 'bright green');
+    var fail = color(opts.fail || 'bright red');
+    var info = color(opts.info || [ 'dim', [91,127,127] ]);
     var reset = opts.reset || '\x1b[00m';
     
     var buffered = '';
@@ -42,7 +43,23 @@ module.exports = function (opts) {
     }
 };
 
-function color (rgb) {
+function color (parts) {
+    if (typeof parts === 'string') parts = parts.split(/\s+/);
+    
+    var s = '';
+    for (var i = 0; i < parts.length; i++) {
+        var c = {
+            bright: 1, dim: 2, underscore: 4, blink: 5,
+            reverse: 7, hidden: 8
+        }[parts[i]];
+        
+        if (c) s += '\x1b[' + c + 'm'
+        else s += parseColor(parts[i])
+    }
+    return s;
+}
+
+function parseColor (rgb) {
     if (typeof rgb === 'string' && /,/.test(rgb)) {
         rgb = rgb.split(',');
     }
@@ -62,5 +79,8 @@ function fromHex (s) {
 }
 
 function parseHex (s) {
-    return s.replace(/^#/, '').match(/\w{2}/g).map(fromHex);
+    var xs = s.replace(/^#/, '').match(/\w{2}/g);
+    var res = [];
+    for (var i = 0; i < xs.length; i++) res.push(fromHex(xs[i]));
+    return res;
 }
