@@ -9,6 +9,7 @@
   "dependencies": {
     "colornames": "~0.0.2",
     "minimist": "~0.2.0",
+    "quotemeta": "0.0.0",
     "split": "~0.3.0",
     "stream-combiner": "~0.2.1",
     "through2": "~1.0.0",
@@ -16,7 +17,8 @@
   },
   "devDependencies": {
     "tape": "^2.13.2",
-    "tap-parser": "~0.7.0"
+    "tap-parser": "~0.7.0",
+    "concat-stream": "~1.4.6"
   },
   "scripts": {
     "test": "tape test/*.js"
