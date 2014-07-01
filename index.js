@@ -2,11 +2,12 @@ var split = require('split');
 var through = require('through2');
 var combine = require('stream-combiner');
 var x256 = require('x256');
+var hexCode = require('colornames');
 
 module.exports = function (opts) {
     if (!opts) opts = {};
-    var pass = color(opts.pass || [0,255,0]);
-    var fail = color(opts.fail || [255,0,0]);
+    var pass = color(opts.pass || 'green');
+    var fail = color(opts.fail || 'red');
     var info = color(opts.info || [91,127,127]);
     var reset = opts.reset || '\x1b[00m';
     
@@ -41,7 +42,25 @@ module.exports = function (opts) {
     }
 };
 
-function color (s) {
-    if (typeof s === 'string') return s;
-    return '\x1b[38;5;' + x256(s) + 'm';
+function color (rgb) {
+    if (typeof rgb === 'string' && /,/.test(rgb)) {
+        rgb = rgb.split(',');
+    }
+    else if (typeof rgb === 'string' && /^#/.test(rgb)) {
+        rgb = parseHex(rgb);
+    }
+    else if (typeof rgb === 'string') {
+        rgb = hexCode(rgb);
+        if (rgb) rgb = parseHex(rgb)
+        else rgb = [ 127, 127, 127 ]
+    }
+    return '\x1b[38;5;' + x256(rgb) + 'm';
+}
+
+function fromHex (s) {
+    return parseInt(s, 16);
+}
+
+function parseHex (s) {
+    return s.replace(/^#/, '').match(/\w{2}/g).map(fromHex);
 }
