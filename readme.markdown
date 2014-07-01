@@ -49,6 +49,10 @@ Options are:
 Colors can be a hex code starting with a `#`, an array of rgb `0-255` integers,
 or a [color name](https://www.npmjs.org/package/colornames).
 
+You can preface a color name with `'bright'`, `'dim'`. `'reverse'`, or
+`'underscore'`. Use an array for a color with a string prefix if you want to
+preface an rgb array color.
+
 # usage
 
 There is also a command-line program in this package.
