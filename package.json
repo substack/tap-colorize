@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "colornames": "~0.0.2",
-    "minimist": "~0.2.0",
+    "minimist": "~1.2.5",
     "quotemeta": "0.0.0",
     "split": "~0.3.0",
     "stream-combiner": "~0.2.1",
